@@ -20,6 +20,7 @@ export type User = {
     growth: number;
   }>;
   streak: number;
+  token: string;
 };
 
 export default function App() {

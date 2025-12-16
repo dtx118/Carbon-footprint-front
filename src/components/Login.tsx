@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -6,7 +5,8 @@ import { Label } from './ui/label';
 import { User as UserIcon, Lock, Loader2 } from 'lucide-react'; // J'ai changé Mail par UserIcon
 import { Logo } from './Logo';
 import type { User } from '../App';
-import api from '../services/api'; // ✅ 1. Import de ton service API
+import api from '../services/api';
+import {useState} from "react"; // ✅ 1. Import de ton service API
 
 interface LoginProps {
   onLogin: (user: User) => void;
@@ -55,7 +55,8 @@ export function Login({ onLogin }: LoginProps) {
 
         // Le token est géré automatiquement par api.ts si tu as bien fait le "setAuthToken" 
         // ou l'intercepteur, sinon response.data.token contient le token.
-        
+        const jwtToken = response.data.token || response.data.jwtToken; // Récupérez le token
+
         console.log("Token reçu:", response.data.token);
 
         // 2. Création de l'utilisateur (Simulation des données manquantes pour la démo)
@@ -71,6 +72,7 @@ export function Login({ onLogin }: LoginProps) {
           },
           forest: [],
           streak: 1,
+          token: jwtToken,
         };
         
         // 3. Validation
